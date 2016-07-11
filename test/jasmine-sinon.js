@@ -1,3 +1,7 @@
+function onProgress() {
+  console.log('upload in progress');
+}
+
 function uploadFile(url) {
 
   var options = { url: url,
@@ -5,13 +9,10 @@ function uploadFile(url) {
                   data: {},
                   xhr: function(){
                     var xhr = $.ajaxSettings.xhr() ;
-                    xhr.upload.addEventListener('progress', self.onProgress, false);
-                    xhr.upload.addEventListener('load', self.onComplete, false);
+                    xhr.upload.addEventListener('progress', onProgress, false);
                     return xhr ;
                   },
-                  // do not convert data to string
                   processData: false,
-                  // to avoid override header content type. particularly for boundary
                   contentType: false
                 };
   return $.ajax(options);
@@ -20,7 +21,6 @@ function uploadFile(url) {
 
 
 describe('test XHR2 upload', function () {
-
 
   beforeEach(function () {
     this.ss = sinon.sandbox.create();
@@ -39,7 +39,6 @@ describe('test XHR2 upload', function () {
       [ 200, { 'Content-Type': 'application/json' },
         '{ "id": 12, "name": "an-test-file", "type": "cert" }'
       ]);
-
 
     uploadFile(url)
       .done(function (resp) {
