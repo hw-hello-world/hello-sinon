@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hw-hello-world/hello-sinon#readme",
   "devDependencies": {
+    "jasmine": "^2.5.2",
     "jquery": "^1.11.3",
     "sinon": "^1.17.4"
   }
